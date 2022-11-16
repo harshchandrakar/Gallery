@@ -12,7 +12,6 @@ exports.createPost = catchAsyncError(async (req, res) => {
         message: "There is no such user",
       });
   });
-  console.log(req.file);
   let obj = {
     name: req.body.name,
     uid: req.body.uid,
@@ -39,7 +38,6 @@ exports.createPost = catchAsyncError(async (req, res) => {
 exports.allPosts = catchAsyncError(async (req, res) => {
   const id = req.query.id;
   const name = req.query.name;
-  console.log(id, name);
   if (name == undefined) {
     Post.find({ uid: id }, (err, posts) => {
       if (err)
@@ -77,13 +75,11 @@ exports.allPosts = catchAsyncError(async (req, res) => {
             };
             li.push(obj);
           }
-          return res
-            .status(200)
-            .json({
-              success: true,
-              message: "found post containing " + name,
-              posts: li,
-            });
+          return res.status(200).json({
+            success: true,
+            message: "found post containing " + name,
+            posts: li,
+          });
         }
       }
     );
